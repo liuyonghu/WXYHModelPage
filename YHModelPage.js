@@ -62,8 +62,8 @@ Component({
                                                         {};
                                                         break;
                                         };
-                                //        判断赋值是否为空
-                                        if (!newVal.type ) {
+                                        //        判断赋值是否为空
+                                        if (!newVal.type) {
                                                 return;
                                         }
                                         that.setData({
@@ -139,6 +139,10 @@ Component({
                         // reset property showPage
                         this.properties.toShowPage = false;
                         // call func
+                        if (!this.properties.confrimFunc) {
+                                throw new EvalError("confrimFunc is undefind !");
+                                return;
+                        }
                         this.properties.confrimFunc();
                         this.setData({
                                 mainHeight: "0px",
