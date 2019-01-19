@@ -1,7 +1,6 @@
 // libs/ModelPage/YHModelPage.js
 
-const YHTools = require("../../libs/YHTools.js");
-var yhTools = new YHTools();
+
 
 Component({
         /**
@@ -116,7 +115,7 @@ Component({
          */
         methods: {
                 showYHModelPage: function() {
-                        var systemInfo = yhTools.getLocalData("systemInfo");
+                        var systemInfo = this.systemInfo();
                         var sHeight = systemInfo.windowHeight;
                         var that = this;
                         // console.log("this = " + JSON.stringify(this));
@@ -148,6 +147,18 @@ Component({
                                 mainHeight: "0px",
                                 YHOpacity: 0
                         });
+                },
+                systemInfo() {
+                        var systemInfo = this.getLocalData("systemInfo");
+                        if (!systemInfo) {
+                                systemInfo = wx.getSystemInfoSync();
+                                this.saveLocalData({
+                                        "systemInfo": systemInfo
+                                });
+                        }
+                        return systemInfo;
                 }
         }
+
+
 })
