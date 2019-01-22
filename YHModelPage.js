@@ -157,6 +157,14 @@ Component({
                                 });
                         }
                         return systemInfo;
+                },
+                getLocalData(options) {
+
+                        try {
+                                return wx.getStorageSync(options);
+                        } catch (err) {
+                                return false;
+                        }
                 }
         }
 
