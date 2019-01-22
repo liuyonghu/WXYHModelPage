@@ -11,10 +11,12 @@
                         </cover-view>
                 </cover-view>
 
-
-                <cover-view class='confrimButton' bindtap='confrimYHModelPage'>
+<cover-view class='confrimButtonContainer'>
+ <cover-view class='confrimButton' bindtap='confrimYHModelPage'>
                         <cover-view class='confrimButtonTitle'>确定</cover-view>
                 </cover-view>
+</cover-view>
+               
         </cover-view>
 
         <cover-image class='mainInfoView' src='{{YHModelViewInfoData.src}}' wx:if="{{YHModelViewTypeFlag == 'IMAGE'}}" bindtap='confrimYHModelPage'></cover-image>
