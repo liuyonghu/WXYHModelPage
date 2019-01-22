@@ -91,6 +91,10 @@ Component({
                                 }
                         }
                 },
+                closeFunc:{
+                        type:Function,
+                        value:function(){}
+                },
                 YHModelViewType: {
                         type: String,
                         value: "VIEW",
@@ -133,6 +137,7 @@ Component({
                                 mainHeight: "0px",
                                 YHOpacity: 0
                         });
+                        this.properties.closeFunc();
                 },
                 confrimYHModelPage: function() {
                         // reset property showPage
