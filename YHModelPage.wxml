@@ -5,7 +5,10 @@
 
                 <cover-view class='YHModelPageTitle'>{{YHModelViewInfoData.title}}</cover-view>
                 <cover-view class='YHModelPageContent'>
-                          <cover-view class='YHModelPageContentItem' wx:for="{{YHModelViewInfoData.content}}" wx:key="*YHModelPageContentItem">{{item}}</cover-view>
+                        <cover-view class='YHModelPageContentItem' wx:for="{{YHModelViewInfoData.content}}" wx:key="*YHModelPageContentItem">
+                                <cover-view class='itemTitle'>{{item.title}}</cover-view>
+                                <cover-view class='itemContent'>{{item.content}}</cover-view>
+                        </cover-view>
                 </cover-view>
 
 

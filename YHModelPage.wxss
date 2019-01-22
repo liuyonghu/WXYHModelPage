@@ -21,6 +21,7 @@
         /* bottom: 50px; */
         border-radius: 10px;
         box-shadow: 1px 1px 1px gray;
+        z-index: 201;
 }
 
 .closeButton {
@@ -75,10 +76,36 @@
         margin-top: 10px;
         margin-left: 0px;
         width: auto;
-        color: #287fe8;
         text-align: left;
-        white-space: normal;
+        display: flex;
+        justify-content: space-between;
+}
+
+.itemTitle {
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px;
+        width: auto;
+        max-width: 9rem;
+        height: auto;
+        font-weight: bold;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        word-wrap: none;
+        color: #287fe8;
+}
+
+.itemContent {
+        height: auto;
+        width: auto;
+        margin: 0px;
+        padding: 0px;
         font-size: 0.85rem;
+        word-wrap: normal;
+        white-space: normal;
+        color: #000;
+        text-align: right;
+        max-width: 9rem;
 }
 
 .confrimButton {
