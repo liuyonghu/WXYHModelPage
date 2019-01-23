@@ -49,12 +49,12 @@ Component({
                                                 case ("VIEW"):
                                                         {
 
-                                                                console.log("   VIEW");
+                                                                // console.log("   VIEW");
                                                         };
                                                         break;
                                                 case ("IMAGE"):
                                                         {
-                                                                console.log("   IMAGE");
+                                                                // console.log("   IMAGE");
                                                         };
                                                         break;
                                                 default:
@@ -68,11 +68,11 @@ Component({
                                         that.setData({
                                                 YHModelViewTypeFlag: newVal.type
                                         });
-                                        console.log("   if(newVal){ = =" + that.data.YHModelViewTypeFlag);
+                                        // console.log("   if(newVal){ = =" + that.data.YHModelViewTypeFlag);
 
                                 } else {
 
-                                        console.log("   if(newVal){ }else{");
+                                        // console.log("   if(newVal){ }else{");
                                 }
                         }
                 },
