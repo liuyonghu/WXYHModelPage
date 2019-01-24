@@ -90,8 +90,8 @@
         height: auto;
         font-weight: bold;
         font-size: 0.9rem;
-        white-space: nowrap;
-        word-wrap: none;
+        white-space: normal;
+        word-wrap: normal;
         color: #287fe8;
 }
 
@@ -107,6 +107,7 @@
         text-align: right;
         max-width: 9rem;
 }
+
 .confrimButtonContainer {
         position: absolute;
         bottom: 0px;
@@ -115,6 +116,7 @@
         width: 100%;
         border-top: 1px solid lightgray;
 }
+
 .confrimButton {
         position: absolute;
         bottom: 5px;
@@ -140,4 +142,3 @@
         padding-left: 16px;
         padding-right: 16px;
 }
-
