@@ -84,14 +84,14 @@
 .itemTitle {
         margin: 0px;
         padding: 0px;
-        width: auto;
-        max-width: 9rem;
+        width: 5rem;
         height: auto;
         font-weight: bold;
         font-size: 0.9rem;
         white-space: pre-wrap;
         word-wrap: normal;
         color: #287fe8;
+        text-align: left;
 }
 
 .itemContent {
@@ -113,6 +113,7 @@
         left: 0px;
         height: 60px;
         width: 100%;
+        border-top: 1px solid lightgray;
 }
 
 .confrimButton {
