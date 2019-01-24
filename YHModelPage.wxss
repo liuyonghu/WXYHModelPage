@@ -66,8 +66,8 @@
         width: 100%;
         bottom: 60px;
         /* padding: 40px; */
-        padding-left: 40px;
-        padding-right: 40px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
         overflow: scroll;
 }
 
@@ -82,7 +82,6 @@
 }
 
 .itemTitle {
-        overflow: hidden;
         margin: 0px;
         padding: 0px;
         width: auto;
@@ -90,7 +89,7 @@
         height: auto;
         font-weight: bold;
         font-size: 0.9rem;
-        white-space: normal;
+        white-space: pre-wrap;
         word-wrap: normal;
         color: #287fe8;
 }
@@ -102,7 +101,7 @@
         padding: 0px;
         font-size: 0.85rem;
         word-wrap: normal;
-        white-space: normal;
+        white-space: pre-wrap;
         color: #000;
         text-align: right;
         max-width: 9rem;
@@ -114,7 +113,6 @@
         left: 0px;
         height: 60px;
         width: 100%;
-        border-top: 1px solid lightgray;
 }
 
 .confrimButton {
