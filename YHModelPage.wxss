@@ -68,7 +68,7 @@
         /* padding: 40px; */
         padding-left: 1.5rem;
         padding-right: 1.5rem;
-        overflow: scroll;
+        overflow-y: scroll;
 }
 
 .YHModelPageContentItem {
