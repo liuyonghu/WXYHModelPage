@@ -20,7 +20,7 @@
         </cover-view>
 
         <cover-image class='mainInfoView' src='{{YHModelViewInfoData.src}}' wx:if="{{YHModelViewTypeFlag == 'IMAGE'}}" bindtap='confrimYHModelPage'></cover-image>
-        <cover-view class='closeButton' bindtap='closeYHModelPage'>
+        <cover-view wx:if="{{showClose}}" class='closeButton' bindtap='closeYHModelPage'>
                 <cover-view class='closeButtonTitle'>×</cover-view>
         </cover-view>
 

@@ -10,7 +10,8 @@ Component({
                 showYHModelPageAnimation: {},
                 mainHeight: "0px",
                 YHOpacity: 0,
-                YHModelViewTypeFlag: "VIEW"
+                YHModelViewTypeFlag: "VIEW",
+                showClose:true
         },
         /**
          * 组件的属性列表
@@ -37,6 +38,7 @@ Component({
                                 title: "提示",
                                 content: "通常 newVal 就是新设置的数据， oldVal 是旧数据",
                                 src: "",
+                                showClose:true,
                                 type: "VIEW"
                         },
                         observer(newVal, oldVal, changedPath) {
@@ -66,7 +68,8 @@ Component({
                                                 return;
                                         }
                                         that.setData({
-                                                YHModelViewTypeFlag: newVal.type
+                                                YHModelViewTypeFlag: newVal.type,
+                                                showClose: newVal.showClose
                                         });
                                         // console.log("   if(newVal){ = =" + that.data.YHModelViewTypeFlag);
 
@@ -144,7 +147,6 @@ Component({
                         this.properties.toShowPage = false;
                         // call func
                         if (!this.properties.confrimFunc) {
-                                throw new EvalError("confrimFunc is undefind !");
                                 return;
                         }
                         this.properties.confrimFunc();
