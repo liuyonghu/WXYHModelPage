@@ -69,7 +69,7 @@ Component({
                                         }
                                         that.setData({
                                                 YHModelViewTypeFlag: newVal.type,
-                                                showClose: newVal.showClose
+                                                showClose: newVal.showClose || true
                                         });
                                         // console.log("   if(newVal){ = =" + that.data.YHModelViewTypeFlag);
 
