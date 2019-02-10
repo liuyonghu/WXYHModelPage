@@ -71,7 +71,7 @@ Component({
                     }
                     that.setData({
                         YHModelViewTypeFlag: newVal.type,
-                        showClose: newVal.showClose,
+                        showClose: newVal.showClose || false,
                         YHModelViewInfoData: newVal
                     });
                     console.log("   if(newVal){ = =" + JSON.stringify(newVal));
@@ -148,7 +148,7 @@ Component({
         confrimYHModelPage: function(e) {
             // reset property showPage
             // console.log("e  = " + JSON.stringify(e));
-            
+
             var item = e.target.dataset.item || false;
             if (item){
                 var isClickEnable = item.isClickEnable == "1";
