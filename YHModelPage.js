@@ -45,18 +45,18 @@ Component({
                 var that = this;
                 // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
                 // 通常 newVal 就是新设置的数据， oldVal 是旧数据
-                // console.log("that = " + JSON.stringify(that));
+                // // console.log("that = " + JSON.stringify(that));
                 if (newVal) {
                     switch (newVal.type) {
                         case ("VIEW"):
                             {
 
-                                // console.log("   VIEW");
+                                // // console.log("   VIEW");
                             };
                             break;
                         case ("IMAGE"):
                             {
-                                // console.log("   IMAGE");
+                                // // console.log("   IMAGE");
                             };
                             break;
                         default:
@@ -72,11 +72,11 @@ Component({
                         showClose: newVal.showClose || false,
                         YHModelViewInfoData: newVal
                     });
-                //     console.log("   if(newVal){ = =" + JSON.stringify(newVal));
+                //     // console.log("   if(newVal){ = =" + JSON.stringify(newVal));
 
                 } else {
 
-                    // console.log("   if(newVal){ }else{");
+                    // // console.log("   if(newVal){ }else{");
                 }
             }
         },
@@ -87,11 +87,11 @@ Component({
                 // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
                 // 通常 newVal 就是新设置的数据， oldVal 是旧数据
                 if (newVal) {
-                    // console.log("   if(newVal){");
+                    // // console.log("   if(newVal){");
 
                 } else {
 
-                    // console.log("   if(newVal){ }else{");
+                    // // console.log("   if(newVal){ }else{");
                 }
             }
         },
@@ -126,12 +126,12 @@ Component({
             var systemInfo = this.systemInfo();
             var sHeight = systemInfo.windowHeight;
             var that = this;
-            // console.log("this = " + JSON.stringify(this));
+            // // console.log("this = " + JSON.stringify(this));
             that.setData({
                 mainHeight: "100%",
                 YHOpacity: 1
             });
-            // console.log("that1 = " + JSON.stringify(this));
+            // // console.log("that1 = " + JSON.stringify(this));
 
         },
         closeYHModelPage: function() {
@@ -145,7 +145,7 @@ Component({
         },
         confrimYHModelPage: function(e) {
             // reset property showPage
-            // console.log("e  = " + JSON.stringify(e));
+            // // console.log("e  = " + JSON.stringify(e));
 
             var item = e.target.dataset.item || false;
             if (item){
@@ -156,7 +156,7 @@ Component({
                 }
                
                 var src = item.clickUrl;
-                console.log("src = " + src);
+                // console.log("src = " + src);
             }
 
             this.properties.toShowPage = false;

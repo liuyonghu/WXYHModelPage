@@ -88,7 +88,7 @@
     text-align: left;
     height: auto;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .itemTitle {
@@ -114,7 +114,8 @@
     white-space: pre-wrap;
     color: #000;
     text-align: right;
-    max-width: 9rem;
+    max-width: 280rpx;
+
 }
 
 .confrimButtonContainer {
