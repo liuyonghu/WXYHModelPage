@@ -26,7 +26,7 @@
 
                 <cover-view class='pageControl' wx:if="{{YHModelViewInfoData.responseList.length > 1}}">
 
-                        <cover-view class='pageContolItems' wx:for="{{YHModelViewInfoData.responseList}}" style='background-color:transparent;' >
+                        <cover-view class='pageContolItems' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*responseList" style='background-color:transparent;' >
                                 <block wx:if="{{item.show}}">
                                         <cover-view class='pageContolItemsContent' style='   background-color:gray;'></cover-view>
                                 </block>
