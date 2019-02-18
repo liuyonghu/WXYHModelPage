@@ -75,6 +75,15 @@ Component({
                                         if (!newVal.type) {
                                                 return;
                                         }
+                                        var items = newVal.responseList;
+
+                                        items.forEach(function(item,index){
+                                                if(index){
+                                                        item.show = false;
+                                                }else{
+                                                        item.show = true;
+                                                }
+                                        })
                                         that.setData({
                                                 YHModelViewTypeFlag: newVal.type,
                                                 showClose: newVal.showClose || false,
@@ -241,7 +250,10 @@ Component({
                         var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
                         if (YHModelViewTypeFlag == "IMAGE") {
                                 var mainInfoViewContainerLeftFlag = that.data.mainInfoViewContainerLeftFlag;
-                                var imageNum = that.data.YHModelViewInfoData.responseList.length;
+                                var YHModelViewInfoData = that.data.YHModelViewInfoData;
+                                var responseList = YHModelViewInfoData.responseList;
+                                var imageNum = responseList.length;
+
                                 var scrollWdith = that.data.mainInfoViewWidth;
                                 var animation = that.animation;
                                 // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
@@ -285,7 +297,16 @@ Component({
                                                         mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
                                                 });
                                         }
-
+                                        responseList.forEach(function(item,index){
+                                                if (index == Math.abs(mainInfoViewContainerLeftFlag)){
+                                                        responseList[index].show = true;   
+                                                }else{
+                                                        responseList[index].show = false; 
+                                                }
+                                        });
+                                        that.setData({
+                                                YHModelViewInfoData: YHModelViewInfoData
+                                        });
                                 }
                         }
 

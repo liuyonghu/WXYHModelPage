@@ -1,5 +1,7 @@
 /* libs/ModelPage/YHModelPage.wxss */
-
+cover-image,cover-view {
+        box-sizing: border-box;
+}
 .backgroundView {
         position: absolute;
         width: 100%;
@@ -24,16 +26,46 @@
         /* overflow: scroll; */
         overflow: hidden;
         white-space: nowrap;
-       
 }
 
 .mainInfoViewContainer {
         display: flex;
 }
 
+.pageControl {
+        position: absolute;
+        bottom: 0.2rem;
+        width: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 1.1rem;
+        display: flex;
+        border-radius: 0.5rem;
+        justify-content: center;
+        flex-direction: row;
+        background-color: rgba(0, 0, 0, 0.15);
+        padding: 0.1rem;
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+        border: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.pageContolItems {
+        height: 0.8rem;
+        width: 0.8rem;
+        padding: 0.1rem;
+        border-radius: 50%;
+}
+
+.pageContolItemsContent {
+        height: 0.6rem;
+        width: 0.6rem;
+        border-radius: 50%;
+}
+
 .ImageItem {
         /* float: left; */
-        display:inline-block;
+        display: inline-block;
         flex-shrink: 0;
         /* width: 100%;
     height: 100%; */
