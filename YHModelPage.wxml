@@ -24,9 +24,9 @@
                         <cover-image class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" src='{{item.imgUrl}}' bindtap='confrimYHModelPage' data-item='{{item}}'></cover-image>
                 </cover-view>
 
-                <cover-view class='pageControl'>
+                <cover-view class='pageControl' wx:if="{{YHModelViewInfoData.responseList.length > 1}}">
 
-                        <cover-view class='pageContolItems' wx:for="{{YHModelViewInfoData.responseList}}" style='background-color:transparent;'>
+                        <cover-view class='pageContolItems' wx:for="{{YHModelViewInfoData.responseList}}" style='background-color:transparent;' >
                                 <block wx:if="{{item.show}}">
                                         <cover-view class='pageContolItemsContent' style='   background-color:gray;'></cover-view>
                                 </block>
