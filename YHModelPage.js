@@ -12,7 +12,15 @@ Component({
                 YHOpacity: 0,
                 YHModelViewTypeFlag: "VIEW",
                 showClose: true,
-                YHModelViewInfoData: {}
+                YHModelViewInfoData: {},
+                mainInfoViewContainerAnimation: {},
+                touchMove: false,
+                touchStartPoint: {},
+                mainInfoViewWidth: "",
+                mainInfoViewHeight: "",
+                mainInfoViewContainerWidth: "",
+                mainInfoViewContainerHeight: "",
+                mainInfoViewContainerLeftFlag: 0
         },
         /**
          * 组件的属性列表
@@ -127,10 +135,37 @@ Component({
                         var sHeight = systemInfo.windowHeight;
                         var that = this;
                         // // console.log("this = " + JSON.stringify(this));
-                        that.setData({
-                                mainHeight: "100%",
-                                YHOpacity: 1
+                        var systemInfo = that.systemInfo();
+                        var wW = systemInfo.windowWidth * 0.8;
+                        var wH = systemInfo.windowHeight * 0.7;
+
+                        const animation = wx.createAnimation({
+                                duration: 100,
+                                timingFunction: 'ease',
                         });
+                        that.animation = animation;
+
+                        var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
+                        if (YHModelViewTypeFlag == "VIEW") {
+                                that.setData({
+                                        mainInfoViewWidth: wW,
+                                        mainInfoViewHeight: wH,
+                                        mainHeight: "100%",
+                                        YHOpacity: 1
+                                });
+                        } else {
+                                let imageNum = that.data.YHModelViewInfoData.responseList.length;
+                                let cw = wW * imageNum;
+                                that.setData({
+                                        mainInfoViewWidth: wW,
+                                        mainInfoViewHeight: wH,
+                                        mainInfoViewContainerWidth: cw,
+                                        mainInfoViewContainerHeight: wH,
+                                        mainHeight: "100%",
+                                        YHOpacity: 1
+                                });
+                        }
+
                         // // console.log("that1 = " + JSON.stringify(this));
 
                 },
@@ -187,6 +222,84 @@ Component({
                         } catch (err) {
                                 return false;
                         }
+                },
+                mainInfoViewTouchMove: function(e) {
+                        // console.log("mainInfoViewTouchMove = " + JSON.stringify(e.touches));
+                        this.setData({
+                                touchMove: true
+                        });
+                },
+                mainInfoViewTouchStart: function(e) {
+                        // console.log("mainInfoViewTouchStart = " + JSON.stringify(e));
+                        this.setData({
+                                touchStartPoint: e.changedTouches[0],
+                                touchMove: false
+                        });
+                },
+                mainInfoViewTouchEnd: function(e) {
+                        var that = this;
+                        var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
+                        if (YHModelViewTypeFlag == "IMAGE") {
+                                var mainInfoViewContainerLeftFlag = that.data.mainInfoViewContainerLeftFlag;
+                                var imageNum = that.data.YHModelViewInfoData.responseList.length;
+                                var scrollWdith = that.data.mainInfoViewWidth;
+                                var animation = that.animation;
+                                // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
+                                var touchMove = that.data.touchMove;
+                                let scrollXDistance = false;
+                                if (touchMove) {
+                                        var touchStartPoint = that.data.touchStartPoint;
+                                        var touchEndPoint = e.changedTouches[0];
+                                        scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX;
+                                }
+                                var scrollLeft = false;
+                                if (scrollXDistance) {
+                                        scrollLeft = scrollXDistance >= 0;
+
+
+                                        if (scrollLeft) {
+                                                if (mainInfoViewContainerLeftFlag - 1 == -imageNum) {
+                                                        return;
+                                                }
+
+
+                                                mainInfoViewContainerLeftFlag = mainInfoViewContainerLeftFlag - 1;
+                                                var mainInfoViewContainerLeft = scrollWdith * (mainInfoViewContainerLeftFlag);
+
+                                                animation.translateX(mainInfoViewContainerLeft).step();
+                                                that.setData({
+                                                        mainInfoViewContainerAnimation: animation.export(),
+                                                        mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
+                                                });
+                                        } else {
+                                                if (mainInfoViewContainerLeftFlag  == 0) {
+                                                        return;
+                                                }
+                                                mainInfoViewContainerLeftFlag = mainInfoViewContainerLeftFlag + 1;
+                                                var mainInfoViewContainerLeft = scrollWdith * (mainInfoViewContainerLeftFlag);
+
+                                                animation.translateX(mainInfoViewContainerLeft).step();
+
+                                                that.setData({
+                                                        mainInfoViewContainerAnimation: animation.export(),
+                                                        mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
+                                                });
+                                        }
+
+                                }
+                        }
+
+
+                },
+                systemInfo() {
+                        var systemInfo = this.getLocalData("systemInfo");
+                        if (!systemInfo) {
+                                systemInfo = wx.getSystemInfoSync();
+                                this.saveLocalData({
+                                        "systemInfo": systemInfo
+                                });
+                        }
+                        return systemInfo;
                 }
         }
 
