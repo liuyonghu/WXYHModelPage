@@ -14,13 +14,15 @@ Component({
                 showClose: true,
                 YHModelViewInfoData: {},
                 mainInfoViewContainerAnimation: {},
-                touchMove: false,
+                touchMove: {},
                 touchStartPoint: {},
                 mainInfoViewWidth: "",
                 mainInfoViewHeight: "",
                 mainInfoViewContainerWidth: "",
                 mainInfoViewContainerHeight: "",
-                mainInfoViewContainerLeftFlag: 0
+                mainInfoViewContainerLeftFlag: 0,
+                scrollDistance: 0,
+                scrollXDistance: 0
         },
         /**
          * 组件的属性列表
@@ -77,10 +79,10 @@ Component({
                                         }
                                         var items = newVal.responseList;
 
-                                        items.forEach(function(item,index){
-                                                if(index){
+                                        items.forEach(function(item, index) {
+                                                if (index) {
                                                         item.show = false;
-                                                }else{
+                                                } else {
                                                         item.show = true;
                                                 }
                                         })
@@ -233,20 +235,12 @@ Component({
                         }
                 },
                 mainInfoViewTouchMove: function(e) {
-                        // console.log("mainInfoViewTouchMove = " + JSON.stringify(e.touches));
-                        this.setData({
-                                touchMove: true
-                        });
-                },
-                mainInfoViewTouchStart: function(e) {
-                        // console.log("mainInfoViewTouchStart = " + JSON.stringify(e));
-                        this.setData({
-                                touchStartPoint: e.changedTouches[0],
-                                touchMove: false
-                        });
-                },
-                mainInfoViewTouchEnd: function(e) {
                         var that = this;
+                        var touchMove = that.data.touchMove;
+                        touchMove.moveOnOff = true;
+                        this.setData({
+                                touchMove: touchMove
+                        });
                         var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
                         if (YHModelViewTypeFlag == "IMAGE") {
                                 var mainInfoViewContainerLeftFlag = that.data.mainInfoViewContainerLeftFlag;
@@ -257,9 +251,8 @@ Component({
                                 var scrollWdith = that.data.mainInfoViewWidth;
                                 var animation = that.animation;
                                 // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
-                                var touchMove = that.data.touchMove;
                                 let scrollXDistance = false;
-                                if (touchMove) {
+                                if (touchMove.moveOnOff && touchMove.firstCall) {
                                         var touchStartPoint = that.data.touchStartPoint;
                                         var touchEndPoint = e.changedTouches[0];
                                         scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX;
@@ -284,7 +277,7 @@ Component({
                                                         mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
                                                 });
                                         } else {
-                                                if (mainInfoViewContainerLeftFlag  == 0) {
+                                                if (mainInfoViewContainerLeftFlag == 0) {
                                                         return;
                                                 }
                                                 mainInfoViewContainerLeftFlag = mainInfoViewContainerLeftFlag + 1;
@@ -297,18 +290,204 @@ Component({
                                                         mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
                                                 });
                                         }
-                                        responseList.forEach(function(item,index){
-                                                if (index == Math.abs(mainInfoViewContainerLeftFlag)){
-                                                        responseList[index].show = true;   
-                                                }else{
-                                                        responseList[index].show = false; 
+                                        responseList.forEach(function(item, index) {
+                                                if (index == Math.abs(mainInfoViewContainerLeftFlag)) {
+                                                        responseList[index].show = true;
+                                                } else {
+                                                        responseList[index].show = false;
                                                 }
                                         });
+                                        touchMove.firstCall = false;
                                         that.setData({
-                                                YHModelViewInfoData: YHModelViewInfoData
+                                                YHModelViewInfoData: YHModelViewInfoData,
+                                                touchMove: touchMove
                                         });
                                 }
                         }
+
+
+
+
+
+
+                        return;
+                        // console.log("mainInfoViewTouchMove = " + JSON.stringify(e.touches));
+                        var that = this;
+                        var touchMove = that.data.touchMove;
+                        touchMove.moveOnOff = true;
+                        this.setData({
+                                touchMove: touchMove
+                        });
+                        var windowWidth = that.systemInfo.windowWidth;
+                        var mainInfoViewWidth = that.data.mainInfoViewWidth;
+                        var spaceWdith = (windowWidth - mainInfoViewWidth) / 2;
+                        var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
+                        if (YHModelViewTypeFlag == "IMAGE") {
+                                var mainInfoViewContainerLeftFlag = that.data.mainInfoViewContainerLeftFlag;
+                                var YHModelViewInfoData = that.data.YHModelViewInfoData;
+                                var responseList = YHModelViewInfoData.responseList;
+                                var imageNum = responseList.length;
+
+                                var scrollWdith = that.data.mainInfoViewWidth;
+                                var animation = that.animation;
+                                // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
+                                
+                                var scrollXDistance = 0;
+                                if (touchMove.moveOnOff && touchMove.firstCall) {
+                                        var touchStartPoint = that.data.touchStartPoint;
+                                        var touchEndPoint = e.changedTouches[0];
+                                        let scrollDistance = that.data.scrollDistance;
+                                        console.log("scrollDistance = " + scrollDistance);
+                                        // console.log("mainInfoViewTouchEnd = " + JSON.stringify(touchEndPoint));
+                                        scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX + scrollDistance;
+                                }
+
+                                var scrollLeft = false;
+                                if (scrollXDistance) {
+                                        scrollLeft = scrollXDistance >= 0;
+
+                                        var mainInfoViewContainerLeft = -scrollXDistance;
+
+                                        console.log("mainInfoViewContainerLeft = " + mainInfoViewContainerLeft);
+                                        if (scrollLeft) {
+                                                if (mainInfoViewContainerLeftFlag - 1 == -imageNum) {
+                                                        return;
+                                                }
+                                                var tempDistance = (Math.abs(scrollXDistance) + mainInfoViewWidth - touchStartPoint.clientX);
+
+                                                console.log("tempDistance L = " + tempDistance + "    mainInfoViewWidth  =" + mainInfoViewWidth);
+                                                if (tempDistance >= mainInfoViewWidth) {
+                                                        return;
+                                                }
+
+                                                animation.translateX(mainInfoViewContainerLeft).step();
+                                                that.setData({
+                                                        mainInfoViewContainerAnimation: animation.export(),
+                                                        mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
+                                                });
+                                        } else {
+                                                if (mainInfoViewContainerLeftFlag == 0) {
+                                                        return;
+                                                }
+                                                var tempDistance = (Math.abs(scrollXDistance) + touchStartPoint.clientX);
+                                                console.log("tempDistance R = " + tempDistance + "    mainInfoViewWidth  =" + mainInfoViewWidth);
+                                                if (tempDistance >= mainInfoViewWidth) {
+
+                                                        return;
+                                                }
+
+                                                animation.translateX(mainInfoViewContainerLeft).step();
+
+                                                that.setData({
+                                                        mainInfoViewContainerAnimation: animation.export(),
+                                                        mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
+                                                });
+                                        }
+                                        responseList.forEach(function(item, index) {
+                                                if (index == Math.abs(mainInfoViewContainerLeftFlag)) {
+                                                        responseList[index].show = true;
+                                                } else {
+                                                        responseList[index].show = false;
+                                                }
+                                        });
+                                        touchMove.firstCall = false;
+                                        that.setData({
+                                                YHModelViewInfoData: YHModelViewInfoData,
+                                                touchMove: touchMove
+                                        });
+                                        // console.log("mainInfoViewTouchEnd = " + JSON.stringify(touchEndPoint));
+
+                                }
+                        }
+
+                },
+                mainInfoViewTouchStart: function(e) {
+                        // console.log("mainInfoViewTouchStart = " + JSON.stringify(e));
+
+
+                        this.setData({
+                                touchStartPoint: e.changedTouches[0],
+                                touchMove: {
+                                        moveOnOff: false,
+                                        firstCall: true
+                                }
+                        });
+                },
+                mainInfoViewTouchEnd: function(e) {
+                        // var that = this;
+                        // var touchStartPoint = that.data.touchStartPoint;
+                        // var touchEndPoint = e.changedTouches[0];
+                        // let scrollDistance = that.data.scrollDistance;
+                        // let scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX + scrollDistance;
+                        // that.setData({
+                        //         scrollDistance: scrollXDistance
+                        // });
+
+
+
+                        // var that = this;
+                        // var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
+                        // if (YHModelViewTypeFlag == "IMAGE") {
+                        //         var mainInfoViewContainerLeftFlag = that.data.mainInfoViewContainerLeftFlag;
+                        //         var YHModelViewInfoData = that.data.YHModelViewInfoData;
+                        //         var responseList = YHModelViewInfoData.responseList;
+                        //         var imageNum = responseList.length;
+
+                        //         var scrollWdith = that.data.mainInfoViewWidth;
+                        //         var animation = that.animation;
+                        //         // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
+                        //         var touchMove = that.data.touchMove;
+                        //         let scrollXDistance = false;
+                        //         if (touchMove) {
+                        //                 var touchStartPoint = that.data.touchStartPoint;
+                        //                 var touchEndPoint = e.changedTouches[0];
+                        //                 scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX;
+                        //         }
+                        //         var scrollLeft = false;
+                        //         if (scrollXDistance) {
+                        //                 scrollLeft = scrollXDistance >= 0;
+
+
+                        //                 if (scrollLeft) {
+                        //                         if (mainInfoViewContainerLeftFlag - 1 == -imageNum) {
+                        //                                 return;
+                        //                         }
+
+
+                        //                         mainInfoViewContainerLeftFlag = mainInfoViewContainerLeftFlag - 1;
+                        //                         var mainInfoViewContainerLeft = scrollWdith * (mainInfoViewContainerLeftFlag);
+
+                        //                         animation.translateX(mainInfoViewContainerLeft).step();
+                        //                         that.setData({
+                        //                                 mainInfoViewContainerAnimation: animation.export(),
+                        //                                 mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
+                        //                         });
+                        //                 } else {
+                        //                         if (mainInfoViewContainerLeftFlag  == 0) {
+                        //                                 return;
+                        //                         }
+                        //                         mainInfoViewContainerLeftFlag = mainInfoViewContainerLeftFlag + 1;
+                        //                         var mainInfoViewContainerLeft = scrollWdith * (mainInfoViewContainerLeftFlag);
+
+                        //                         animation.translateX(mainInfoViewContainerLeft).step();
+
+                        //                         that.setData({
+                        //                                 mainInfoViewContainerAnimation: animation.export(),
+                        //                                 mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
+                        //                         });
+                        //                 }
+                        //                 responseList.forEach(function(item,index){
+                        //                         if (index == Math.abs(mainInfoViewContainerLeftFlag)){
+                        //                                 responseList[index].show = true;   
+                        //                         }else{
+                        //                                 responseList[index].show = false; 
+                        //                         }
+                        //                 });
+                        //                 that.setData({
+                        //                         YHModelViewInfoData: YHModelViewInfoData
+                        //                 });
+                        //         }
+                        // }
 
 
                 },
