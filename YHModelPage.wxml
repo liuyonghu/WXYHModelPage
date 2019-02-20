@@ -1,5 +1,5 @@
 <cover-view class="backgroundView" animation="{{showYHPageAnimation}}" style='height:{{mainHeight}};opacity:{{YHOpacity}}'>
-
+        <!--  VIEW  -->
         <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'VIEW'}}">
 
 
@@ -18,7 +18,7 @@
                 </cover-view>
 
         </cover-view>
-
+        <!--  IMAGE  -->
         <cover-view class='mainInfoView' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:if="{{YHModelViewTypeFlag == 'IMAGE'}}" bindtouchmove='' catchtouchmove='mainInfoViewTouchMove' catchtouchstart='mainInfoViewTouchStart' catchtouchend='mainInfoViewTouchEnd'>
                 <cover-view class='mainInfoViewContainer' animation="{{mainInfoViewContainerAnimation}}" style='width:{{mainInfoViewContainerWidth}}px;height:{{mainInfoViewContainerHeight}}px;'>
                         <cover-image class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" src='{{item.imgUrl}}' bindtap='confrimYHModelPage' data-item='{{item}}'></cover-image>
@@ -26,7 +26,7 @@
 
                 <cover-view class='pageControl' wx:if="{{YHModelViewInfoData.responseList.length > 1}}">
 
-                        <cover-view class='pageContolItems' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*responseList" style='background-color:transparent;' >
+                        <cover-view class='pageContolItems' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*responseList" style='background-color:transparent;'>
                                 <block wx:if="{{item.show}}">
                                         <cover-view class='pageContolItemsContent' style='   background-color:gray;'></cover-view>
                                 </block>
@@ -42,6 +42,24 @@
 
 
         </cover-view>
+        <!--  CONTENT  -->
+        <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'CONTENT'}}">
+                <cover-view class='YHModelPageTitle'>{{YHModelViewInfoData.title}}</cover-view>
+                <cover-view class='YHModelPageContent'>
+                        <cover-view class='YHModelPageContentItem'  >
+                                <cover-view class='itemContentOnly'>{{YHModelViewInfoData.content}}</cover-view>
+                        </cover-view>
+                </cover-view>
+
+                <cover-view class='confrimButtonContainer'>
+                        <cover-view class='confrimButton' bindtap='confrimYHModelPage'>
+                                <cover-view class='confrimButtonTitle'>确定</cover-view>
+                        </cover-view>
+                </cover-view>
+
+        </cover-view>
+
+
         <cover-view wx:if="{{showClose}}" class='closeButton' bindtap='closeYHModelPage'>
                 <cover-view class='closeButtonTitle'>×</cover-view>
         </cover-view>

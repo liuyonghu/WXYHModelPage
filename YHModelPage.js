@@ -78,6 +78,20 @@ Component({
                                                                 })
                                                         };
                                                         break;
+                                                case ("CONTENT"):
+                                                        {
+                                                                // // console.log("   IMAGE");
+                                                                var items = newVal.responseList;
+
+                                                                items.forEach(function (item, index) {
+                                                                        if (index) {
+                                                                                item.show = false;
+                                                                        } else {
+                                                                                item.show = true;
+                                                                        }
+                                                                })
+                                                        };
+                                                        break;
                                                 default:
                                                         {};
                                                         break;
