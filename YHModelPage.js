@@ -67,6 +67,15 @@ Component({
                                                 case ("IMAGE"):
                                                         {
                                                                 // // console.log("   IMAGE");
+                                                                var items = newVal.responseList;
+
+                                                                items.forEach(function (item, index) {
+                                                                        if (index) {
+                                                                                item.show = false;
+                                                                        } else {
+                                                                                item.show = true;
+                                                                        }
+                                                                })
                                                         };
                                                         break;
                                                 default:
@@ -77,15 +86,7 @@ Component({
                                         if (!newVal.type) {
                                                 return;
                                         }
-                                        var items = newVal.responseList;
-
-                                        items.forEach(function(item, index) {
-                                                if (index) {
-                                                        item.show = false;
-                                                } else {
-                                                        item.show = true;
-                                                }
-                                        })
+                                       
                                         that.setData({
                                                 YHModelViewTypeFlag: newVal.type,
                                                 showClose: newVal.showClose || false,

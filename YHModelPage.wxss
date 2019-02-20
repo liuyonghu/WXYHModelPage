@@ -1,7 +1,9 @@
 /* libs/ModelPage/YHModelPage.wxss */
-cover-image,cover-view {
+
+cover-image, cover-view {
         box-sizing: border-box;
 }
+
 .backgroundView {
         position: absolute;
         width: 100%;
@@ -116,7 +118,7 @@ cover-image,cover-view {
         bottom: 60px;
         /* padding: 40px; */
         padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        /* padding-right: 1.5rem; */
         overflow-y: scroll;
 }
 
