@@ -1,6 +1,6 @@
-<cover-view class="backgroundView" animation="{{showYHPageAnimation}}" style='height:{{mainHeight}};opacity:{{YHOpacity}}'>
+<cover-view class="backgroundView" animation="{{showYHPageAnimation}}" style='height:{{mainHeight}};opacity:{{YHOpacity}};'>
         <!--  VIEW  -->
-        <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'VIEW'}}">
+        <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'VIEW'}}" style="opacity:{{YHOpacity}};">
 
 
                 <cover-view class='YHModelPageTitle'>{{YHModelViewInfoData.title}}</cover-view>
@@ -19,7 +19,7 @@
 
         </cover-view>
         <!--  IMAGE  -->
-        <cover-view class='mainInfoView' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:if="{{YHModelViewTypeFlag == 'IMAGE'}}" bindtouchmove='' catchtouchmove='mainInfoViewTouchMove' catchtouchstart='mainInfoViewTouchStart' catchtouchend='mainInfoViewTouchEnd'>
+        <cover-view class='mainInfoView' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;opacity:{{YHOpacity}};' wx:if="{{YHModelViewTypeFlag == 'IMAGE'}}" bindtouchmove='' catchtouchmove='mainInfoViewTouchMove' catchtouchstart='mainInfoViewTouchStart' catchtouchend='mainInfoViewTouchEnd'>
                 <cover-view class='mainInfoViewContainer' animation="{{mainInfoViewContainerAnimation}}" style='width:{{mainInfoViewContainerWidth}}px;height:{{mainInfoViewContainerHeight}}px;'>
                         <cover-image class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" src='{{item.imgUrl}}' bindtap='confrimYHModelPage' data-item='{{item}}'></cover-image>
                 </cover-view>
@@ -43,7 +43,7 @@
 
         </cover-view>
         <!--  CONTENT  -->
-        <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'CONTENT'}}">
+        <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'CONTENT'}}"  style="opacity:{{YHOpacity}};">
                 <cover-view class='YHModelPageTitle'>{{YHModelViewInfoData.title}}</cover-view>
                 <cover-view class='YHModelPageContent'>
                         <cover-view class='YHModelPageContentItem'  >
