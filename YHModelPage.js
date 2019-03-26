@@ -154,7 +154,8 @@ Component({
                         // // console.log("this = " + JSON.stringify(this));
                         var systemInfo = that.systemInfo();
                         var wW = systemInfo.windowWidth * 0.8;
-                        var wH = systemInfo.windowHeight * 0.7;
+                        // scale 1.8 iphone6 height/width
+                        var wH = wW * 1.8;
 
                         const animation = wx.createAnimation({
                                 duration: 100,
