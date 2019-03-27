@@ -155,7 +155,7 @@ Component({
                         var systemInfo = that.systemInfo();
                         var wW = systemInfo.windowWidth * 0.8;
                         // scale 1.8 iphone6 height/width
-                        var wH = wW * 1.8;
+                        var wH = wW * 1.5;
 
                         const animation = wx.createAnimation({
                                 duration: 100,
