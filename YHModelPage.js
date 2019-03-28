@@ -196,6 +196,12 @@ Component({
                         });
                         this.properties.closeFunc();
                 },
+                loadImageError:function(res){
+                        const logger = wx.getLogManager();
+                        const logStr = JSON.stringify(res);
+                        logger.warn('NET ERROR :  ' + { res: logStr });
+
+                },
                 confrimYHModelPage: function(e) {
                         // reset property showPage
                         // // console.log("e  = " + JSON.stringify(e));

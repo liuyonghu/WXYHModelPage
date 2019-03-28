@@ -21,7 +21,7 @@
         <!--  IMAGE  -->
         <cover-view class='mainInfoView' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;opacity:{{YHOpacity}};' wx:if="{{YHModelViewTypeFlag == 'IMAGE'}}" bindtouchmove='' catchtouchmove='mainInfoViewTouchMove' catchtouchstart='mainInfoViewTouchStart' catchtouchend='mainInfoViewTouchEnd'>
                 <cover-view class='mainInfoViewContainer' animation="{{mainInfoViewContainerAnimation}}" style='width:{{mainInfoViewContainerWidth}}px;height:{{mainInfoViewContainerHeight}}px;'>
-                        <cover-image class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" src='{{item.imgUrl}}' bindtap='confrimYHModelPage' data-item='{{item}}'></cover-image>
+                        <cover-image class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" src='{{item.imgUrl}}' bindtap='confrimYHModelPage' data-item='{{item}}'           binderror='loadImageError'></cover-image>
                 </cover-view>
 
                 <cover-view class='pageControl' wx:if="{{YHModelViewInfoData.responseList.length > 1}}">
