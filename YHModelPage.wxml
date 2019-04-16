@@ -1,4 +1,4 @@
-<cover-view class="backgroundView" animation="{{showYHPageAnimation}}" style='height:{{mainHeight}};opacity:{{YHOpacity}};'>
+<cover-view class="backgroundView"  style='height:{{mainHeight}};opacity:{{YHOpacity}};'>
         <!--  VIEW  -->
         <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'VIEW'}}" style="opacity:{{YHOpacity}};">
 

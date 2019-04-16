@@ -22,7 +22,7 @@ Component({
                 mainInfoViewContainerHeight: "",
                 mainInfoViewContainerLeftFlag: 0,
                 scrollDistance: 0,
-                scrollXDistance: 0
+                scrollXDistance: 0,
         },
         /**
          * 组件的属性列表
@@ -157,19 +157,20 @@ Component({
                         // scale 1.8 iphone6 height/width
                         var wH = wW * 1.5;
 
-                        const animation = wx.createAnimation({
-                                duration: 100,
-                                timingFunction: 'ease',
-                        });
-                        that.animation = animation;
-
+                        // const animation = wx.createAnimation({
+                        //         duration: 600,
+                        //         timingFunction: 'ease',
+                        // });
+                        // // that.animation = animation;
+                        // this.animation = animation
+                        // animation.opacity(1).step();
                         var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
                         if (YHModelViewTypeFlag == "VIEW") {
                                 that.setData({
                                         mainInfoViewWidth: wW,
                                         mainInfoViewHeight: wH,
                                         mainHeight: "100%",
-                                        YHOpacity: 1
+                                        YHOpacity: 1,
                                 });
                         } else {
                                 let imageNum = that.data.YHModelViewInfoData.responseList.length;
@@ -180,7 +181,7 @@ Component({
                                         mainInfoViewContainerWidth: cw,
                                         mainInfoViewContainerHeight: wH,
                                         mainHeight: "100%",
-                                        YHOpacity: 1
+                                        YHOpacity: 1,
                                 });
                         }
 
