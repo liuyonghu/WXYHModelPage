@@ -14,7 +14,7 @@ cover-image, cover-view {
         /* transition: opacity 3s ease-in-out; */
         transition-property: opacity;
         transition-delay: 100ms;
-        transition-duration: 6s;
+        transition-duration: 5s;
         transition-timing-function: ease-in-out;
 }
 
@@ -33,6 +33,10 @@ cover-image, cover-view {
         /* overflow: scroll; */
         overflow: hidden;
         white-space: nowrap;
+        /* transition-property: opacity;
+        transition-delay: 100ms;
+        transition-duration: 1s;
+        transition-timing-function: ease-in-out; */
 }
 
 .mainInfoViewContainer {
