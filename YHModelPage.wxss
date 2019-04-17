@@ -12,10 +12,6 @@ cover-image, cover-view {
         background: rgba(0, 0, 0, 0.6);
         z-index: 300;
         /* transition: opacity 3s ease-in-out; */
-        transition-property: opacity;
-        transition-delay: 100ms;
-        transition-duration: 5s;
-        transition-timing-function: ease-in-out;
 }
 
 .mainInfoView {
@@ -33,10 +29,6 @@ cover-image, cover-view {
         /* overflow: scroll; */
         overflow: hidden;
         white-space: nowrap;
-        /* transition-property: opacity;
-        transition-delay: 100ms;
-        transition-duration: 1s;
-        transition-timing-function: ease-in-out; */
 }
 
 .mainInfoViewContainer {

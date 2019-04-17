@@ -69,7 +69,7 @@ Component({
                                                                 // // console.log("   IMAGE");
                                                                 var items = newVal.responseList;
 
-                                                                items.forEach(function (item, index) {
+                                                                items.forEach(function(item, index) {
                                                                         if (index) {
                                                                                 item.show = false;
                                                                         } else {
@@ -80,7 +80,7 @@ Component({
                                                         break;
                                                 case ("CONTENT"):
                                                         {
-                                                             
+
                                                         };
                                                         break;
                                                 default:
@@ -91,7 +91,7 @@ Component({
                                         if (!newVal.type) {
                                                 return;
                                         }
-                                       
+
                                         that.setData({
                                                 YHModelViewTypeFlag: newVal.type,
                                                 showClose: newVal.showClose || false,
@@ -197,10 +197,12 @@ Component({
                         });
                         this.properties.closeFunc();
                 },
-                loadImageError:function(res){
+                loadImageError: function(res) {
                         const logger = wx.getLogManager();
                         const logStr = JSON.stringify(res);
-                        logger.warn('NET ERROR :  ' + { res: logStr });
+                        logger.warn('NET ERROR :  ' + {
+                                res: logStr
+                        });
 
                 },
                 confrimYHModelPage: function(e) {
@@ -345,7 +347,7 @@ Component({
                                 var scrollWdith = that.data.mainInfoViewWidth;
                                 var animation = that.animation;
                                 // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
-                                
+
                                 var scrollXDistance = 0;
                                 if (touchMove.moveOnOff && touchMove.firstCall) {
                                         var touchStartPoint = that.data.touchStartPoint;
@@ -417,15 +419,17 @@ Component({
                 },
                 mainInfoViewTouchStart: function(e) {
                         // console.log("mainInfoViewTouchStart = " + JSON.stringify(e));
+                        if (e) {
+                                this.setData({
+                                        touchStartPoint: e.changedTouches[0],
+                                        touchMove: {
+                                                moveOnOff: false,
+                                                firstCall: true
+                                        }
+                                });
+                        }
 
 
-                        this.setData({
-                                touchStartPoint: e.changedTouches[0],
-                                touchMove: {
-                                        moveOnOff: false,
-                                        firstCall: true
-                                }
-                        });
                 },
                 mainInfoViewTouchEnd: function(e) {
                         // var that = this;
