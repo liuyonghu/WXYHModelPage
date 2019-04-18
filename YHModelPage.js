@@ -1,6 +1,6 @@
 // libs/ModelPage/YHModelPage.js
 
-
+const config = require("../config.js");
 
 Component({
         /**
@@ -190,6 +190,7 @@ Component({
                 },
                 closeYHModelPage: function() {
                         // reset property showPage
+                        // console.log("closeYHModelPage");
                         this.properties.toShowPage = false;
                         this.setData({
                                 mainHeight: "0px",
@@ -207,7 +208,7 @@ Component({
                 },
                 confrimYHModelPage: function(e) {
                         // reset property showPage
-                        // // console.log("e  = " + JSON.stringify(e));
+                        // console.log("e  = " + JSON.stringify(e));
 
                         var item = e.target.dataset.item || false;
                         if (item) {
@@ -353,7 +354,7 @@ Component({
                                         var touchStartPoint = that.data.touchStartPoint;
                                         var touchEndPoint = e.changedTouches[0];
                                         let scrollDistance = that.data.scrollDistance;
-                                        console.log("scrollDistance = " + scrollDistance);
+                                        // console.log("scrollDistance = " + scrollDistance);
                                         // console.log("mainInfoViewTouchEnd = " + JSON.stringify(touchEndPoint));
                                         scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX + scrollDistance;
                                 }
@@ -364,14 +365,14 @@ Component({
 
                                         var mainInfoViewContainerLeft = -scrollXDistance;
 
-                                        console.log("mainInfoViewContainerLeft = " + mainInfoViewContainerLeft);
+                                        // console.log("mainInfoViewContainerLeft = " + mainInfoViewContainerLeft);
                                         if (scrollLeft) {
                                                 if (mainInfoViewContainerLeftFlag - 1 == -imageNum) {
                                                         return;
                                                 }
                                                 var tempDistance = (Math.abs(scrollXDistance) + mainInfoViewWidth - touchStartPoint.clientX);
 
-                                                console.log("tempDistance L = " + tempDistance + "    mainInfoViewWidth  =" + mainInfoViewWidth);
+                                                // console.log("tempDistance L = " + tempDistance + "    mainInfoViewWidth  =" + mainInfoViewWidth);
                                                 if (tempDistance >= mainInfoViewWidth) {
                                                         return;
                                                 }
@@ -386,7 +387,7 @@ Component({
                                                         return;
                                                 }
                                                 var tempDistance = (Math.abs(scrollXDistance) + touchStartPoint.clientX);
-                                                console.log("tempDistance R = " + tempDistance + "    mainInfoViewWidth  =" + mainInfoViewWidth);
+                                                // console.log("tempDistance R = " + tempDistance + "    mainInfoViewWidth  =" + mainInfoViewWidth);
                                                 if (tempDistance >= mainInfoViewWidth) {
 
                                                         return;
@@ -419,7 +420,7 @@ Component({
                 },
                 mainInfoViewTouchStart: function(e) {
                         // console.log("mainInfoViewTouchStart = " + JSON.stringify(e));
-                        if (e) {
+                        if (e && e.changedTouches && e.changedTouches.length > 0) {
                                 this.setData({
                                         touchStartPoint: e.changedTouches[0],
                                         touchMove: {
@@ -518,6 +519,75 @@ Component({
                                 });
                         }
                         return systemInfo;
+                },
+                saveImageToAlbum(e) {
+                        // console.log(JSON.stringify(e));
+                        const item = e.target.dataset.item;
+                        var tempPath ;
+                        wx.getImageInfo({
+                                src: item.imgUrl,
+                                success: function(res) {
+                                        tempPath = res.path;
+                                        // console.log(JSON.stringify(res));
+
+
+                                        wx.saveImageToPhotosAlbum({
+                                                filePath: tempPath,
+                                                success: function (res) {
+                                                        wx.showModal({
+                                                                title: '保存成功',
+                                                                content: '使用微信扫描相册内图片，即可分享。',
+                                                                confirmColor: config.Config.confirmColor,
+                                                                showCancel: false
+                                                        })
+                                                        //// console.log("saveImageToPhotosAlbum success = " + JSON.stringify(res));
+                                                },
+                                                fail: function (res) {
+                                                        wx.showModal({
+                                                                title: '保存失败',
+                                                                content: '请检查设置是否有保存相册权限',
+                                                                confirmColor: config.Config.confirmColor,
+                                                                showCancel: true,
+                                                                success(res) {
+                                                                        if(res.confirm){
+                                                                                wx.openSetting({
+                                                                                        success(res) {
+
+                                                                                        }
+                                                                                });
+                                                                        }
+                                                                       
+                                                                }
+                                                        })
+                                                        //// console.log("saveImageToPhotosAlbum fail = " + JSON.stringify(res));
+                                                },
+                                                complete: function (res) {
+                                                        //// console.log("saveImageToPhotosAlbum complete = " + JSON.stringify(res));
+                                                }
+                                        });
+                                },
+                                fail: function(res) {
+                                        wx.showModal({
+                                                title: '保存失败',
+                                                content: '请检查设置是否有保存相册权限',
+                                                confirmColor: config.Config.confirmColor,
+                                                showCancel: true,
+                                                success(res) {
+                                                        if (res.confirm) {
+                                                                wx.openSetting({
+                                                                        success(res) {
+
+                                                                        }
+                                                                });
+                                                        }
+                                                }
+                                        })
+                                },
+                                complete: function(res) {
+
+                                }
+                        })
+                        
                 }
         }
 

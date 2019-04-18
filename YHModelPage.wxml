@@ -1,4 +1,4 @@
-<cover-view class="backgroundView"  style='height:{{mainHeight}};opacity:{{YHOpacity}};'>
+<cover-view class="backgroundView" style='height:{{mainHeight}};opacity:{{YHOpacity}};'>
         <!--  VIEW  -->
         <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'VIEW'}}" style="opacity:{{YHOpacity}};">
 
@@ -19,9 +19,14 @@
 
         </cover-view>
         <!--  IMAGE  -->
-        <cover-view class='mainInfoView' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;opacity:{{YHOpacity}};' wx:if="{{YHModelViewTypeFlag == 'IMAGE'}}" bindtouchmove='' catchtouchmove='mainInfoViewTouchMove' catchtouchstart='mainInfoViewTouchStart' catchtouchend='mainInfoViewTouchEnd'>
+
+        <cover-view class='mainInfoView' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;opacity:{{YHOpacity}};' wx:if="{{YHModelViewTypeFlag == 'IMAGE'}}" bindtouchmove='' bindtouchmove='mainInfoViewTouchMove' bindtouchstart='mainInfoViewTouchStart'
+                bindtouchend='mainInfoViewTouchEnd'>
                 <cover-view class='mainInfoViewContainer' animation="{{mainInfoViewContainerAnimation}}" style='width:{{mainInfoViewContainerWidth}}px;height:{{mainInfoViewContainerHeight}}px;'>
-                        <cover-image class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" src='{{item.imgUrl}}' bindtap='confrimYHModelPage' data-item='{{item}}'           binderror='loadImageError'></cover-image>
+
+
+                        <cover-image class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" src='{{item.imgUrl}}' catchtap='confrimYHModelPage' data-item='{{item}}' binderror='loadImageError'
+                                catchlongpress='saveImageToAlbum'></cover-image>
                 </cover-view>
 
                 <cover-view class='pageControl' wx:if="{{YHModelViewInfoData.responseList.length > 1}}">
@@ -43,10 +48,10 @@
 
         </cover-view>
         <!--  CONTENT  -->
-        <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'CONTENT'}}"  style="opacity:{{YHOpacity}};">
+        <cover-view class='mainInfoView' wx:if="{{YHModelViewTypeFlag == 'CONTENT'}}" style="opacity:{{YHOpacity}};">
                 <cover-view class='YHModelPageTitle'>{{YHModelViewInfoData.title}}</cover-view>
                 <cover-view class='YHModelPageContent'>
-                        <cover-view class='YHModelPageContentItem'  >
+                        <cover-view class='YHModelPageContentItem'>
                                 <cover-view class='itemContentOnly'>{{YHModelViewInfoData.content}}</cover-view>
                         </cover-view>
                 </cover-view>
