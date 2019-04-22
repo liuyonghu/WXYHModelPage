@@ -522,16 +522,18 @@ Component({
                 },
                 saveImageToAlbum(e) {
                         // console.log(JSON.stringify(e));
-                        const item = e.target.dataset.item, that = this;
+                        const item = e.target.dataset.item,
+                                that = this;
                         wx.getSetting({
                                 success(res) {
                                         if (!res.authSetting['scope.writePhotosAlbum']) {
-                                        
+
                                                 wx.authorize({
                                                         scope: 'scope.writePhotosAlbum',
                                                         success() {
                                                                 that.saveImageToAlbumAction(item);
-                                                        },fail(failRes){
+                                                        },
+                                                        fail(failRes) {
 
 
                                                                 wx.showModal({
@@ -552,40 +554,40 @@ Component({
                                                                 })
                                                                 // let errMsg = failRes.errMsg;
                                                                 // if ('authorize:fail auth deny' == errMsg){
-                                                                        
+
                                                                 // }
                                                                 // console.log('!res. = ' + JSON.stringify(failRes));
                                                         }
                                                 })
-                                        }else{
+                                        } else {
                                                 that.saveImageToAlbumAction(item);
                                         }
                                 },
-                                fail:function(){
+                                fail: function() {
                                         wx.showModal({
                                                 title: '获取不到您的授权信息',
                                                 content: '请检车配置，或者联系客服',
                                                 confirmColor: config.Config.confirmColor,
                                                 showCancel: false
-                                        })  
+                                        })
                                 }
                         })
-                       
-                       
+
+
 
                 },
                 saveImageToAlbumAction(item) {
                         var tempPath;
                         wx.getImageInfo({
                                 src: item.imgUrl,
-                                success: function (res) {
+                                success: function(res) {
                                         tempPath = res.path;
                                         // console.log(JSON.stringify(res));
 
 
                                         wx.saveImageToPhotosAlbum({
                                                 filePath: tempPath,
-                                                success: function (res) {
+                                                success: function(res) {
                                                         wx.showModal({
                                                                 title: '保存成功',
                                                                 content: '使用微信扫描相册内图片，即可分享。',
@@ -594,15 +596,15 @@ Component({
                                                         })
                                                         //// console.log("saveImageToPhotosAlbum success = " + JSON.stringify(res));
                                                 },
-                                                fail: function (res) {
+                                                fail: function(res) {
                                                         let errmsg = res.errMsg;
-                                                        if ('saveImageToPhotosAlbum:fail cancel' == errmsg){
+                                                        if ('saveImageToPhotosAlbum:fail cancel' == errmsg) {
                                                                 wx.showToast({
                                                                         title: '操作已取消',
-                                                                        mask:true,
-                                                                        duration:800
+                                                                        mask: true,
+                                                                        duration: 800
                                                                 });
-                                                        } else if ('authorize:fail auth deny' == errmsg){
+                                                        } else if ('authorize:fail auth deny' == errmsg) {
                                                                 wx.showModal({
                                                                         title: '保存失败',
                                                                         content: '请检查设置是否有保存相册权限',
@@ -620,15 +622,15 @@ Component({
                                                                         }
                                                                 })
                                                         }
-                                                        
+
                                                         console.log("saveImageToPhotosAlbum fail = " + JSON.stringify(res));
                                                 },
-                                                complete: function (res) {
+                                                complete: function(res) {
                                                         //// console.log("saveImageToPhotosAlbum complete = " + JSON.stringify(res));
                                                 }
                                         });
                                 },
-                                fail: function (res) {
+                                fail: function(res) {
                                         wx.showModal({
                                                 title: '保存失败',
                                                 content: '请检查设置是否有保存相册权限',
@@ -645,7 +647,7 @@ Component({
                                                 }
                                         })
                                 },
-                                complete: function (res) {
+                                complete: function(res) {
 
                                 }
                         });
