@@ -37,7 +37,7 @@ Component({
                                 if (newVal) {
                                         this.showYHModelPage();
                                 } else {
-                                        this.closePage();
+                                        this.closeYHModelPage();
                                 }
                         }
                 },
