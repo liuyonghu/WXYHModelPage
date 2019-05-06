@@ -156,14 +156,6 @@ Component({
                         var wW = systemInfo.windowWidth * 0.8;
                         // scale 1.8 iphone6 height/width
                         var wH = wW * 1.5;
-
-                        // const animation = wx.createAnimation({
-                        //         duration: 600,
-                        //         timingFunction: 'ease',
-                        // });
-                        // // that.animation = animation;
-                        // this.animation = animation
-                        // animation.opacity(1).step();
                         var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
                         if (YHModelViewTypeFlag == "VIEW") {
                                 that.setData({
@@ -319,101 +311,6 @@ Component({
                                                 YHModelViewInfoData: YHModelViewInfoData,
                                                 touchMove: touchMove
                                         });
-                                }
-                        }
-
-
-
-
-
-
-                        return;
-                        // console.log("mainInfoViewTouchMove = " + JSON.stringify(e.touches));
-                        var that = this;
-                        var touchMove = that.data.touchMove;
-                        touchMove.moveOnOff = true;
-                        this.setData({
-                                touchMove: touchMove
-                        });
-                        var windowWidth = that.systemInfo.windowWidth;
-                        var mainInfoViewWidth = that.data.mainInfoViewWidth;
-                        var spaceWdith = (windowWidth - mainInfoViewWidth) / 2;
-                        var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
-                        if (YHModelViewTypeFlag == "IMAGE") {
-                                var mainInfoViewContainerLeftFlag = that.data.mainInfoViewContainerLeftFlag;
-                                var YHModelViewInfoData = that.data.YHModelViewInfoData;
-                                var responseList = YHModelViewInfoData.responseList;
-                                var imageNum = responseList.length;
-
-                                var scrollWdith = that.data.mainInfoViewWidth;
-                                var animation = that.animation;
-                                // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
-
-                                var scrollXDistance = 0;
-                                if (touchMove.moveOnOff && touchMove.firstCall) {
-                                        var touchStartPoint = that.data.touchStartPoint;
-                                        var touchEndPoint = e.changedTouches[0];
-                                        let scrollDistance = that.data.scrollDistance;
-                                        // console.log("scrollDistance = " + scrollDistance);
-                                        // console.log("mainInfoViewTouchEnd = " + JSON.stringify(touchEndPoint));
-                                        scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX + scrollDistance;
-                                }
-
-                                var scrollLeft = false;
-                                if (scrollXDistance) {
-                                        scrollLeft = scrollXDistance >= 0;
-
-                                        var mainInfoViewContainerLeft = -scrollXDistance;
-
-                                        // console.log("mainInfoViewContainerLeft = " + mainInfoViewContainerLeft);
-                                        if (scrollLeft) {
-                                                if (mainInfoViewContainerLeftFlag - 1 == -imageNum) {
-                                                        return;
-                                                }
-                                                var tempDistance = (Math.abs(scrollXDistance) + mainInfoViewWidth - touchStartPoint.clientX);
-
-                                                // console.log("tempDistance L = " + tempDistance + "    mainInfoViewWidth  =" + mainInfoViewWidth);
-                                                if (tempDistance >= mainInfoViewWidth) {
-                                                        return;
-                                                }
-
-                                                animation.translateX(mainInfoViewContainerLeft).step();
-                                                that.setData({
-                                                        mainInfoViewContainerAnimation: animation.export(),
-                                                        mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
-                                                });
-                                        } else {
-                                                if (mainInfoViewContainerLeftFlag == 0) {
-                                                        return;
-                                                }
-                                                var tempDistance = (Math.abs(scrollXDistance) + touchStartPoint.clientX);
-                                                // console.log("tempDistance R = " + tempDistance + "    mainInfoViewWidth  =" + mainInfoViewWidth);
-                                                if (tempDistance >= mainInfoViewWidth) {
-
-                                                        return;
-                                                }
-
-                                                animation.translateX(mainInfoViewContainerLeft).step();
-
-                                                that.setData({
-                                                        mainInfoViewContainerAnimation: animation.export(),
-                                                        mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
-                                                });
-                                        }
-                                        responseList.forEach(function(item, index) {
-                                                if (index == Math.abs(mainInfoViewContainerLeftFlag)) {
-                                                        responseList[index].show = true;
-                                                } else {
-                                                        responseList[index].show = false;
-                                                }
-                                        });
-                                        touchMove.firstCall = false;
-                                        that.setData({
-                                                YHModelViewInfoData: YHModelViewInfoData,
-                                                touchMove: touchMove
-                                        });
-                                        // console.log("mainInfoViewTouchEnd = " + JSON.stringify(touchEndPoint));
-
                                 }
                         }
 
