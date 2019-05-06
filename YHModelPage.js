@@ -132,6 +132,10 @@ Component({
                                 // 通常 newVal 就是新设置的数据， oldVal 是旧数据
 
                         }
+                },
+                imageClickFunc:{
+                        type: Function,
+                        value: function () { }
                 }
         },
         ready: function() {
@@ -202,7 +206,7 @@ Component({
                         // reset property showPage
                         // console.log("e  = " + JSON.stringify(e));
 
-                        var item = e.target.dataset.item || false;
+                        var item = e.target.dataset.item || false,src ;
                         if (item) {
                                 var isClickEnable = item.isClickEnable == "1";
 
@@ -210,20 +214,14 @@ Component({
                                         return;
                                 }
 
-                                var src = item.clickUrl;
-                                // console.log("src = " + src);
+                                src = item.clickUrl;
                         }
 
-                        this.properties.toShowPage = false;
-                        // call func
                         if (!this.properties.confrimFunc) {
+                                console.error("MODEL PAGE COMPNENT HAS NO FUNC - confrimYHModelPage -");
                                 return;
                         }
-                        this.properties.confrimFunc();
-                        this.setData({
-                                mainHeight: "0px",
-                                YHOpacity: 0
-                        });
+                        this.properties.confrimFunc(src);
                 },
                 systemInfo() {
                         var systemInfo = this.getLocalData("systemInfo");
