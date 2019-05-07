@@ -22,7 +22,7 @@ Component({
                 mainInfoViewContainerHeight: "",
                 mainInfoViewContainerLeftFlag: 0,
                 scrollDistance: 0,
-                scrollXDistance: 0,
+                scrollXDistance: 0
         },
         /**
          * 组件的属性列表
@@ -205,23 +205,22 @@ Component({
                 confrimYHModelPage: function(e) {
                         // reset property showPage
                         // console.log("e  = " + JSON.stringify(e));
+                        var that = this;
 
-                        var item = e.target.dataset.item || false,src ;
+                        var item = e.target.dataset.item || false, option = that.data.YHModelViewInfoData.responseList[that.data.mainInfoViewContainerLeftFlag];
                         if (item) {
                                 var isClickEnable = item.isClickEnable == "1";
 
                                 if (!isClickEnable) {
                                         return;
                                 }
-
-                                src = item.clickUrl;
                         }
 
                         if (!this.properties.confrimFunc) {
                                 console.error("MODEL PAGE COMPNENT HAS NO FUNC - confrimYHModelPage -");
                                 return;
                         }
-                        this.properties.confrimFunc(src);
+                        this.properties.confrimFunc(option);
                 },
                 systemInfo() {
                         var systemInfo = this.getLocalData("systemInfo");
