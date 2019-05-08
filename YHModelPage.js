@@ -76,6 +76,11 @@ Component({
                                                                                 item.show = true;
                                                                         }
                                                                 })
+
+                                                                if (that.properties.yhModelPageDidScroll) {
+                                                                        var option = newVal.responseList[Math.abs(that.data.mainInfoViewContainerLeftFlag)];
+                                                                        that.properties.yhModelPageDidScroll(JSON.stringify(option));
+                                                                }
                                                         };
                                                         break;
                                                 case ("CONTENT"):
@@ -99,6 +104,7 @@ Component({
                                         });
                                         //     // console.log("   if(newVal){ = =" + JSON.stringify(newVal));
 
+                                       
                                 } else {
 
                                         // // console.log("   if(newVal){ }else{");
@@ -133,17 +139,24 @@ Component({
 
                         }
                 },
-                imageClickFunc:{
+                imageClickFunc: {
                         type: Function,
-                        value: function () { }
+                        value: function() {}
+                },
+                yhModelPageDidScroll: {
+                        type: Function,
+                        value: function() {}
                 }
         },
         ready: function() {
+               
                 const animation = wx.createAnimation({
-                        duration: 500,
+                        duration: 200,
                         timingFunction: "ease"
                 })
                 this.animation = animation;
+
+            
         },
 
 
@@ -205,16 +218,13 @@ Component({
                 confrimYHModelPage: function(e) {
                         // reset property showPage
                         // console.log("e  = " + JSON.stringify(e));
-                        var that = this, pageIndex = Math.abs(that.data.mainInfoViewContainerLeftFlag);
-
-                        var item = e.target.dataset.item || false, option = that.data.YHModelViewInfoData.responseList[pageIndex];
-                        if (item) {
-                                var isClickEnable = item.isClickEnable == "1";
-
-                                if (!isClickEnable) {
-                                        return;
-                                }
+                        var that = this,
+                                pageIndex = Math.abs(that.data.mainInfoViewContainerLeftFlag);
+                        var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag, option = "VIEW";
+                        if (YHModelViewTypeFlag == "IMAGE"){
+                                option = that.data.YHModelViewInfoData.responseList[pageIndex];
                         }
+                         
 
                         if (!this.properties.confrimFunc) {
                                 console.error("MODEL PAGE COMPNENT HAS NO FUNC - confrimYHModelPage -");
@@ -228,7 +238,7 @@ Component({
                                 systemInfo = wx.getSystemInfoSync();
                                 this.saveLocalData({
                                         "systemInfo": systemInfo
-                                });
+                                },true);
                         }
                         return systemInfo;
                 },
@@ -278,10 +288,10 @@ Component({
                                                 var mainInfoViewContainerLeft = scrollWdith * (mainInfoViewContainerLeftFlag);
 
                                                 animation.translateX(mainInfoViewContainerLeft).step();
-                                                that.setData({
-                                                        mainInfoViewContainerAnimation: animation.export(),
-                                                        mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
-                                                });
+                                                // that.setData({
+                                                //         mainInfoViewContainerAnimation: animation.export(),
+                                                //         mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
+                                                // });
                                         } else {
                                                 if (mainInfoViewContainerLeftFlag == 0) {
                                                         return;
@@ -291,10 +301,10 @@ Component({
 
                                                 animation.translateX(mainInfoViewContainerLeft).step();
 
-                                                that.setData({
-                                                        mainInfoViewContainerAnimation: animation.export(),
-                                                        mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
-                                                });
+                                                // that.setData({
+                                                //         mainInfoViewContainerAnimation: animation.export(),
+                                                //         mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
+                                                // });
                                         }
                                         responseList.forEach(function(item, index) {
                                                 if (index == Math.abs(mainInfoViewContainerLeftFlag)) {
@@ -305,9 +315,16 @@ Component({
                                         });
                                         touchMove.firstCall = false;
                                         that.setData({
+                                                mainInfoViewContainerAnimation: animation.export(),
+                                                mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag,
                                                 YHModelViewInfoData: YHModelViewInfoData,
                                                 touchMove: touchMove
                                         });
+
+                                        if (that.properties.yhModelPageDidScroll) {
+                                                var option = that.data.YHModelViewInfoData.responseList[Math.abs(that.data.mainInfoViewContainerLeftFlag)];
+                                                that.properties.yhModelPageDidScroll(JSON.stringify(option));
+                                        }
                                 }
                         }
 
@@ -410,7 +427,7 @@ Component({
                                 systemInfo = wx.getSystemInfoSync();
                                 this.saveLocalData({
                                         "systemInfo": systemInfo
-                                });
+                                },true);
                         }
                         return systemInfo;
                 },

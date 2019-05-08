@@ -24,9 +24,12 @@
                 bindtouchend='mainInfoViewTouchEnd'>
                 <cover-view class='mainInfoViewContainer' animation="{{mainInfoViewContainerAnimation}}" style='width:{{mainInfoViewContainerWidth}}px;height:{{mainInfoViewContainerHeight}}px;'>
 
+                        <cover-view class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" >
 
-                        <cover-image class='ImageItem' style='width:{{mainInfoViewWidth}}px;height:{{mainInfoViewHeight}}px;' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*imageList" src='{{item.imgUrl}}' catchtap='confrimYHModelPage' data-item='{{item}}' binderror='loadImageError'
-                                catchlongpress='saveImageToAlbum'></cover-image>
+                                <cover-image class='ImageItemImage' src='{{item.imgUrl}}' binderror='loadImageError' catchtap='confrimYHModelPage'  catchlongpress='saveImageToAlbum'> </cover-image>
+                                <button open-type='share' class='shareBtn' wx:if="{{item.isActivity == 1}}"></button>
+                        
+                        </cover-view>
                 </cover-view>
 
                 <cover-view class='pageControl' wx:if="{{YHModelViewInfoData.responseList.length > 1}}">
