@@ -1,7 +1,9 @@
 // libs/ModelPage/YHModelPage.js
 
 const config = require("../config.js");
-
+var touchStartPoint = {},
+        touchMove = {},
+        mainInfoViewContainerLeftFlag = 0;
 Component({
         /**
          * 组件的初始数据
@@ -14,13 +16,10 @@ Component({
                 showClose: true,
                 YHModelViewInfoData: {},
                 mainInfoViewContainerAnimation: {},
-                touchMove: {},
-                touchStartPoint: {},
                 mainInfoViewWidth: "",
                 mainInfoViewHeight: "",
                 mainInfoViewContainerWidth: "",
                 mainInfoViewContainerHeight: "",
-                mainInfoViewContainerLeftFlag: 0,
                 scrollDistance: 0,
                 scrollXDistance: 0
         },
@@ -78,7 +77,8 @@ Component({
                                                                 })
 
                                                                 if (that.properties.yhModelPageDidScroll) {
-                                                                        var option = newVal.responseList[Math.abs(that.data.mainInfoViewContainerLeftFlag)];
+                                                                        console.log(" mainInfoViewContainerLeftFlag -- " + mainInfoViewContainerLeftFlag);
+                                                                        var option = newVal.responseList[Math.abs(mainInfoViewContainerLeftFlag)];
                                                                         that.properties.yhModelPageDidScroll(JSON.stringify(option));
                                                                 }
                                                         };
@@ -104,7 +104,7 @@ Component({
                                         });
                                         //     // console.log("   if(newVal){ = =" + JSON.stringify(newVal));
 
-                                       
+
                                 } else {
 
                                         // // console.log("   if(newVal){ }else{");
@@ -149,14 +149,14 @@ Component({
                 }
         },
         ready: function() {
-               
+
                 const animation = wx.createAnimation({
                         duration: 200,
                         timingFunction: "ease"
                 })
                 this.animation = animation;
 
-            
+
         },
 
 
@@ -219,12 +219,13 @@ Component({
                         // reset property showPage
                         // console.log("e  = " + JSON.stringify(e));
                         var that = this,
-                                pageIndex = Math.abs(that.data.mainInfoViewContainerLeftFlag);
-                        var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag, option = "VIEW";
-                        if (YHModelViewTypeFlag == "IMAGE"){
+                                pageIndex = Math.abs(mainInfoViewContainerLeftFlag);
+                        var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag,
+                                option = "VIEW";
+                        if (YHModelViewTypeFlag == "IMAGE") {
                                 option = that.data.YHModelViewInfoData.responseList[pageIndex];
                         }
-                         
+
 
                         if (!this.properties.confrimFunc) {
                                 console.error("MODEL PAGE COMPNENT HAS NO FUNC - confrimYHModelPage -");
@@ -238,7 +239,7 @@ Component({
                                 systemInfo = wx.getSystemInfoSync();
                                 this.saveLocalData({
                                         "systemInfo": systemInfo
-                                },true);
+                                }, true);
                         }
                         return systemInfo;
                 },
@@ -252,14 +253,10 @@ Component({
                 },
                 mainInfoViewTouchMove: function(e) {
                         var that = this;
-                        var touchMove = that.data.touchMove;
                         touchMove.moveOnOff = true;
-                        this.setData({
-                                touchMove: touchMove
-                        });
                         var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
                         if (YHModelViewTypeFlag == "IMAGE") {
-                                var mainInfoViewContainerLeftFlag = that.data.mainInfoViewContainerLeftFlag;
+                                var mainInfoViewContainerLeftFlag = mainInfoViewContainerLeftFlag;
                                 var YHModelViewInfoData = that.data.YHModelViewInfoData;
                                 var responseList = YHModelViewInfoData.responseList;
                                 var imageNum = responseList.length;
@@ -269,7 +266,6 @@ Component({
                                 // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
                                 let scrollXDistance = false;
                                 if (touchMove.moveOnOff && touchMove.firstCall) {
-                                        var touchStartPoint = that.data.touchStartPoint;
                                         var touchEndPoint = e.changedTouches[0];
                                         scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX;
                                 }
@@ -317,12 +313,11 @@ Component({
                                         that.setData({
                                                 mainInfoViewContainerAnimation: animation.export(),
                                                 mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag,
-                                                YHModelViewInfoData: YHModelViewInfoData,
-                                                touchMove: touchMove
+                                                YHModelViewInfoData: YHModelViewInfoData
                                         });
 
                                         if (that.properties.yhModelPageDidScroll) {
-                                                var option = that.data.YHModelViewInfoData.responseList[Math.abs(that.data.mainInfoViewContainerLeftFlag)];
+                                                var option = that.data.YHModelViewInfoData.responseList[Math.abs(mainInfoViewContainerLeftFlag)];
                                                 that.properties.yhModelPageDidScroll(JSON.stringify(option));
                                         }
                                 }
@@ -332,13 +327,13 @@ Component({
                 mainInfoViewTouchStart: function(e) {
                         // console.log("mainInfoViewTouchStart = " + JSON.stringify(e));
                         if (e && e.changedTouches && e.changedTouches.length > 0) {
-                                this.setData({
-                                        touchStartPoint: e.changedTouches[0],
-                                        touchMove: {
-                                                moveOnOff: false,
-                                                firstCall: true
-                                        }
-                                });
+                                touchStartPoint = e.changedTouches[0];
+
+                                touchMove = {
+                                        moveOnOff: false,
+                                        firstCall: true
+                                };
+
                         }
 
 
@@ -427,7 +422,7 @@ Component({
                                 systemInfo = wx.getSystemInfoSync();
                                 this.saveLocalData({
                                         "systemInfo": systemInfo
-                                },true);
+                                }, true);
                         }
                         return systemInfo;
                 },
