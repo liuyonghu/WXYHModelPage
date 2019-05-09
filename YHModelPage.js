@@ -3,7 +3,7 @@
 const config = require("../config.js");
 var touchStartPoint = {},
         touchMove = {},
-        mainInfoViewContainerLeftFlag = 0;
+        mainInfoViewContainerLeftFlag = 0, scrollDistance = 0, scrollXDistance = 0;
 Component({
         /**
          * 组件的初始数据
@@ -20,8 +20,8 @@ Component({
                 mainInfoViewHeight: "",
                 mainInfoViewContainerWidth: "",
                 mainInfoViewContainerHeight: "",
-                scrollDistance: 0,
-                scrollXDistance: 0
+                // scrollDistance: 0,
+                // scrollXDistance: 0
         },
         /**
          * 组件的属性列表
@@ -256,7 +256,6 @@ Component({
                         touchMove.moveOnOff = true;
                         var YHModelViewTypeFlag = that.data.YHModelViewTypeFlag;
                         if (YHModelViewTypeFlag == "IMAGE") {
-                                var mainInfoViewContainerLeftFlag = mainInfoViewContainerLeftFlag;
                                 var YHModelViewInfoData = that.data.YHModelViewInfoData;
                                 var responseList = YHModelViewInfoData.responseList;
                                 var imageNum = responseList.length;
@@ -264,7 +263,8 @@ Component({
                                 var scrollWdith = that.data.mainInfoViewWidth;
                                 var animation = that.animation;
                                 // console.log("mainInfoViewTouchEnd = " + JSON.stringify(e));
-                                let scrollXDistance = false;
+                                // let scrollXDistance = false;
+                                scrollXDistance = false;
                                 if (touchMove.moveOnOff && touchMove.firstCall) {
                                         var touchEndPoint = e.changedTouches[0];
                                         scrollXDistance = touchStartPoint.clientX - touchEndPoint.clientX;
@@ -317,6 +317,7 @@ Component({
                                         });
 
                                         if (that.properties.yhModelPageDidScroll) {
+                                                console.log(" mainInfoViewContainerLeftFlag -- " + mainInfoViewContainerLeftFlag);
                                                 var option = that.data.YHModelViewInfoData.responseList[Math.abs(mainInfoViewContainerLeftFlag)];
                                                 that.properties.yhModelPageDidScroll(JSON.stringify(option));
                                         }
