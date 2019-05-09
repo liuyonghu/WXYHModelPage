@@ -39,7 +39,7 @@
                                         <cover-view class='pageContolItemsContent' style='   background-color:gray;'></cover-view>
                                 </block>
                                 <block wx:else>
-                                        <cover-view class='pageContolItemsContent' style='   background-color:lightgray;'></cover-view>
+                                        <cover-view class='pageContolItemsContent' style='   background-color:#f8f8f8;'></cover-view>
                                 </block>
                         </cover-view>
 

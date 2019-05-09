@@ -50,7 +50,7 @@ cover-image, cover-view {
         padding: 0.1rem;
         padding-left: 0.2rem;
         padding-right: 0.2rem;
-        border: 1px solid rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .pageContolItems {
