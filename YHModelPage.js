@@ -3,7 +3,9 @@
 const config = require("../config.js");
 var touchStartPoint = {},
         touchMove = {},
-        mainInfoViewContainerLeftFlag = 0, scrollDistance = 0, scrollXDistance = 0;
+        mainInfoViewContainerLeftFlag = 0,
+        scrollDistance = 0,
+        scrollXDistance = 0;
 Component({
         /**
          * 组件的初始数据
@@ -67,7 +69,9 @@ Component({
                                                         {
                                                                 // // console.log("   IMAGE");
                                                                 var items = newVal.responseList;
-
+                                                                if (!items) {
+                                                                        console.error(" -- YHModelPage - IMAGE  has no property :responseList ! --");
+                                                                }
                                                                 items.forEach(function(item, index) {
                                                                         if (index) {
                                                                                 item.show = false;
@@ -77,7 +81,7 @@ Component({
                                                                 })
 
                                                                 if (that.properties.yhModelPageDidScroll) {
-                                                                        console.log(" mainInfoViewContainerLeftFlag -- " + mainInfoViewContainerLeftFlag);
+                                                                        // console.log(" mainInfoViewContainerLeftFlag -- " + mainInfoViewContainerLeftFlag);
                                                                         var option = newVal.responseList[Math.abs(mainInfoViewContainerLeftFlag)];
                                                                         that.properties.yhModelPageDidScroll(JSON.stringify(option));
                                                                 }
@@ -317,7 +321,7 @@ Component({
                                         });
 
                                         if (that.properties.yhModelPageDidScroll) {
-                                                console.log(" mainInfoViewContainerLeftFlag -- " + mainInfoViewContainerLeftFlag);
+                                                // console.log(" mainInfoViewContainerLeftFlag -- " + mainInfoViewContainerLeftFlag);
                                                 var option = that.data.YHModelViewInfoData.responseList[Math.abs(mainInfoViewContainerLeftFlag)];
                                                 that.properties.yhModelPageDidScroll(JSON.stringify(option));
                                         }
