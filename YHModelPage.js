@@ -237,16 +237,6 @@ Component({
                         }
                         this.properties.confrimFunc(JSON.stringify(option));
                 },
-                systemInfo() {
-                        var systemInfo = this.getLocalData("systemInfo");
-                        if (!systemInfo) {
-                                systemInfo = wx.getSystemInfoSync();
-                                this.saveLocalData({
-                                        "systemInfo": systemInfo
-                                }, true);
-                        }
-                        return systemInfo;
-                },
                 getLocalData(options) {
 
                         try {
@@ -430,6 +420,33 @@ Component({
                                 }, true);
                         }
                         return systemInfo;
+                },
+                saveLocalData(options, asyncBol) {
+                        if (asyncBol) {
+                                try {
+                                        for (var key in options) {
+                                                wx.setStorage({
+                                                        key: key,
+                                                        data: options[key],
+                                                });
+                                        }
+                                        return true;
+                                } catch (err) {
+                                        return false;
+                                }
+
+                        } else {
+                                try {
+                                        for (var key in options) {
+                                                wx.setStorageSync(key, options[key]);
+                                        }
+                                        return true;
+                                } catch (err) {
+                                        return false;
+                                }
+                        }
+
+
                 },
                 saveImageToAlbum(e) {
                         // console.log(JSON.stringify(e));
