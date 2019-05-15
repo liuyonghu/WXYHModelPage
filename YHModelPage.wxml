@@ -36,10 +36,10 @@
 
                         <cover-view class='pageContolItems' wx:for="{{YHModelViewInfoData.responseList}}" wx:key="*responseList" style='background-color:transparent;'>
                                 <block wx:if="{{item.show}}">
-                                        <cover-view class='pageContolItemsContent' style='   background-color:gray;'></cover-view>
+                                        <cover-view class='pageContolItemsContent' style='background-color:#f8f8f8;'></cover-view>
                                 </block>
                                 <block wx:else>
-                                        <cover-view class='pageContolItemsContent' style='   background-color:#f8f8f8;'></cover-view>
+                                        <cover-view class='pageContolItemsContent' style='background-color:gray;'></cover-view>
                                 </block>
                         </cover-view>
 

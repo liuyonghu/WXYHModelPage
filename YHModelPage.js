@@ -85,6 +85,7 @@ Component({
                                                                         var option = newVal.responseList[Math.abs(mainInfoViewContainerLeftFlag)];
                                                                         that.properties.yhModelPageDidScroll(JSON.stringify(option));
                                                                 }
+
                                                         };
                                                         break;
                                                 case ("CONTENT"):
@@ -278,10 +279,6 @@ Component({
                                                 var mainInfoViewContainerLeft = scrollWdith * (mainInfoViewContainerLeftFlag);
 
                                                 animation.translateX(mainInfoViewContainerLeft).step();
-                                                // that.setData({
-                                                //         mainInfoViewContainerAnimation: animation.export(),
-                                                //         mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
-                                                // });
                                         } else {
                                                 if (mainInfoViewContainerLeftFlag == 0) {
                                                         return;
@@ -291,10 +288,6 @@ Component({
 
                                                 animation.translateX(mainInfoViewContainerLeft).step();
 
-                                                // that.setData({
-                                                //         mainInfoViewContainerAnimation: animation.export(),
-                                                //         mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag
-                                                // });
                                         }
                                         responseList.forEach(function(item, index) {
                                                 if (index == Math.abs(mainInfoViewContainerLeftFlag)) {
@@ -306,12 +299,11 @@ Component({
                                         touchMove.firstCall = false;
                                         that.setData({
                                                 mainInfoViewContainerAnimation: animation.export(),
-                                                mainInfoViewContainerLeftFlag: mainInfoViewContainerLeftFlag,
                                                 YHModelViewInfoData: YHModelViewInfoData
                                         });
-
+                                        console.log(" mainInfoViewContainerLeftFlag -- " + mainInfoViewContainerLeftFlag);
                                         if (that.properties.yhModelPageDidScroll) {
-                                                // console.log(" mainInfoViewContainerLeftFlag -- " + mainInfoViewContainerLeftFlag);
+                                               
                                                 var option = that.data.YHModelViewInfoData.responseList[Math.abs(mainInfoViewContainerLeftFlag)];
                                                 that.properties.yhModelPageDidScroll(JSON.stringify(option));
                                         }
